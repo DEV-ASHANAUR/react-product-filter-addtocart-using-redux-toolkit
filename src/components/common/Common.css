@@ -1,0 +1,30 @@
+.filter-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.filter-button .tag-btn {
+    padding: 8px 16px;
+    background: #ffff;
+    border-radius: 2px;
+    text-transform: capitalize;
+    font-size: 14px;
+    margin: 3px 0;
+    border: 1px solid #F04135;
+    cursor: pointer;
+}
+.filter-button .tag-btn.btn-active{
+    background-color: #F04135;
+    color: #fff;
+}
+.empty-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+.empty-wrapper img{
+    max-width: 500px;
+    width: 100%;
+}

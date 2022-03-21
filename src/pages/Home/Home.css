@@ -1,0 +1,27 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.home-container{
+  height: 100vh;
+}
+.sidebar, .product{
+  overflow: auto;
+  height: 100vh;
+  overflow-x: hidden;
+}
+.home-wrapper{
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.sidebar {
+  width: 280px;
+  padding: 5px 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.26);
+}
+.product{
+  width: calc(100% - 280px);
+}
