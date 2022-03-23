@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import './Style.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { Modal } from 'react-bootstrap';
+import { Modal,Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import BackspaceRoundedIcon from '@mui/icons-material/BackspaceRounded';
-import {removeCartItem} from '../../store/Feature/Cart/CartSlice';
+import {addToCart,removeCartItem,getTotals,dereaseCart,clearCart} from '../../store/Feature/Cart/CartSlice';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 const SearchBar = ({ value, changeInput }) => {
   const dispatch = useDispatch();
   const [lgShow, setLgShow] = useState(false);
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems,cartTotalQuantity,cartTotalAmount } = useSelector((state) => state.cart);
   let countCart = cartItems.length;
+
+  useEffect(()=>{
+    dispatch(getTotals());
+  },[dispatch,cartItems]);
 
   return (
     <div className='search-container'>
@@ -33,7 +39,12 @@ const SearchBar = ({ value, changeInput }) => {
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-lg">
-              Large Modal
+              <div className='cart-head'>
+                <h6>Cart Item</h6>
+                <div>
+                  <span onClick={()=>dispatch(clearCart())} className='remove-all'>Remove All</span>
+                </div>
+              </div>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -55,8 +66,14 @@ const SearchBar = ({ value, changeInput }) => {
                     <tr key={index}>
                       <td><img className='img-fluid img-thumbnail' src={cItem.coverSrc} style={{width:'60px',height:'60px'}} alt=".." /></td>
                       <td>{cItem.title}</td>
-                      <td>{cItem.price}</td>
-                      <td>{cItem.cartQuantity}</td>
+                      <td>${cItem.price*cItem.cartQuantity}</td>
+                      <td>
+                        <div className='quantityUpdateBtn'>
+                          <button onClick={()=>dispatch(dereaseCart(cItem))} className='decrement'><RemoveIcon /></button>
+                          <span>{cItem.cartQuantity}</span>
+                          <button onClick={()=>dispatch(addToCart(cItem))} className='increment'><AddIcon /></button>
+                        </div>
+                      </td>
                       <td style={{color:'red',cursor: 'pointer'}}><BackspaceRoundedIcon onClick={()=>dispatch(removeCartItem(cItem))} /></td>
                     </tr>
                   ))
@@ -69,6 +86,15 @@ const SearchBar = ({ value, changeInput }) => {
             
               </tbody>
               </table>
+              <div className='d-flex justify-content-between align-items-center py-3'>
+                <div>
+                  <Button variant="success" onClick={() => setLgShow(false)}>continue shopping</Button>
+                </div>
+                <div>
+                  <h6 className='pb-3'>Cart SubTotal : ${cartTotalAmount}</h6>
+                  <Button variant="warning">Checkout</Button>
+                </div>
+              </div>
             </div>
           </Modal.Body>
         </Modal>

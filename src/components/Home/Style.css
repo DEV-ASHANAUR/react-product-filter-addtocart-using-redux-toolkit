@@ -62,3 +62,38 @@ h4.reset {
     border: 1px solid;
     border: 1px solid #756464;
 }
+
+.quantityUpdateBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.quantityUpdateBtn .decrement {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: red;
+}
+.quantityUpdateBtn .decrement:active {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: rgb(173, 45, 45);
+}
+.quantityUpdateBtn .increment {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #0003ff;
+}
+.quantityUpdateBtn .increment:active {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #7375e9;
+}
+span.remove-all {
+    color: red;
+    font-size: 15px;
+    cursor: pointer;
+}
