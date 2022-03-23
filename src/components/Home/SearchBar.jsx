@@ -3,9 +3,11 @@ import './Style.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Modal } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import BackspaceRoundedIcon from '@mui/icons-material/BackspaceRounded';
+import {removeCartItem} from '../../store/Feature/Cart/CartSlice';
 const SearchBar = ({ value, changeInput }) => {
-
+  const dispatch = useDispatch();
   const [lgShow, setLgShow] = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
   let countCart = cartItems.length;
@@ -35,7 +37,7 @@ const SearchBar = ({ value, changeInput }) => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div class="table-responsive">
+            <div className="table-responsive">
               <table className='table text-center'>
               <thead>
                 <tr>
@@ -55,7 +57,7 @@ const SearchBar = ({ value, changeInput }) => {
                       <td>{cItem.title}</td>
                       <td>{cItem.price}</td>
                       <td>{cItem.cartQuantity}</td>
-                      <td>remove</td>
+                      <td style={{color:'red',cursor: 'pointer'}}><BackspaceRoundedIcon onClick={()=>dispatch(removeCartItem(cItem))} /></td>
                     </tr>
                   ))
                   :(

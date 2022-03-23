@@ -31,10 +31,15 @@ export const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    removeCartItem(state,action){
+      const restCartItem = state.cartItems.filter((cartItems)=>cartItems.id !== action.payload.id);
+      state.cartItems = restCartItem;
+      localStorage.setItem('cartItems',JSON.stringify(state.cartItems));
+    }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { addToCart } = cartSlice.actions
+export const { addToCart,removeCartItem } = cartSlice.actions
 
 export default cartSlice.reducer
